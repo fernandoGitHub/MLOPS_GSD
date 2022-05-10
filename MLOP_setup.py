@@ -35,11 +35,6 @@ def install_TFX (reload = True):
   !pip install -U tfx
   if reload:
     reload_packages()
-    
-
-
-
-
   
 def install_Fairness_Indicators (reload == true):
   print ('Installing several libraries including TFDV and TFMA')
