@@ -10,12 +10,14 @@ def set_slicing_feature(feature_name):
 def set_slicing_options(slice_fn=None, schema=None, feature_name=None):
   if (feature_name == None and slice_fn == None):
     print('You must provide either slice_fn or feature_name as argument - Aborting function')
+    return
+  if schema == None:
+    print('Schema parameter is mandatory - Aborting function')
+    return
   if (feature_name != None and slice_fn != None):
     print('Ambiguous arguments - ignoring feature_name')
   if slice_fn == None:
     slice_fn = set_slicing_feature(feature_name)
-  if schema == None:
-    print('Schema parameter is mandatory - Aborting function')
     
   slice_stats_options = tfdv.StatsOptions(schema=schema, slice_functions=[slice_fn], infer_type_from_schema=True)
   return slice_stats_options
