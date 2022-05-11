@@ -1,3 +1,4 @@
+import os
 import tensorflow as tf
 import tensorflow_transform as tft
 from tensorflow_transform.tf_metadata import dataset_metadata
@@ -37,4 +38,34 @@ def create_schema_by_instructions(instructions_dict=None):
   
   return data_metadata, data_metadata._schema
 
+
+def generate_transformation_function_by_instructions(instructions_dict=None):
+  """create_transformation_function_by_instructions(instructions_dict) creates a transform function
+  for transforming data as instructed by the instructions_dictionary.
+  The function is written to the file transform.py and needs to be imported after this command"""
+  
+  with open("temp_file_383838.py",'w',encoding = 'utf-8') as f:
+    f.write(f"def transform_fn (inputs):\n")
+    f.write('  \"\"\"Preprocess input columns into transformed columns.\"\"\"\n\n')
+    f.write("  # extract the columns and assign to local variables\n")
+    
+    f.write("  result = {}\n")
+    for index, (key, value) in enumerate(instructions_dict.items()):
+      new_name = key + "_transformed"
+      f.write(f"  {key} = inputs['{key}']\n")
+      f.write(f"  {new_name} = tft.mean({key})\n")
+      f.write(f"  result['{new_name}'] = {new_name}\n")
+      
+      f.write ("\n  # return the transformed data\n")
+      f.write ("  return result\n")
+
+  import temp_file_383838
+  result_fn = temp_file_383838.transform_fn
+  os.remove('temp_file_383838.py')
+
+  return result_fn
+    
+           
+              
+    
     
