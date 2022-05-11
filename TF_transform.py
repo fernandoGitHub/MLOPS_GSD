@@ -50,15 +50,15 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
     f.write("  # extract the columns and assign to local variables\n")
     
     f.write("  import tensorflow_transform as tft\n")
-    f.write("  result = {}\n")
+    f.write("  result = {}\n\n")
     for index, (key, value) in enumerate(instructions_dict.items()):
       new_name = key + "_transformed"
       f.write(f"  {key} = inputs['{key}']\n")
       f.write(f"  {new_name} = tft.mean({key})\n")
       f.write(f"  result['{new_name}'] = {new_name}\n")
       
-      f.write ("\n  # return the transformed data\n")
-      f.write ("  return result\n")
+    f.write ("\n  # return the transformed data\n")
+    f.write ("  return result\n")
 
   import temp_transform
   result_fn = temp_transform.transform_fn
