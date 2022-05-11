@@ -1,7 +1,6 @@
 import tensorflow_data_validation as tfdv
 import os
 from tensorflow_data_validation.utils import slicing_util
-from types import NoneType
 
 
 def set_slicing_feature(feature_name):
