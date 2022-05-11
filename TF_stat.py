@@ -56,3 +56,14 @@ def calculate_slice_statistics(df=None, slice_stats_options=None, schema=None, f
   sliced_stats = tfdv.generate_statistics_from_csv(CSV_PATH, stats_options=slice_stats_options)
   os.remove(CSV_PATH)
   return sliced_stats
+
+
+def get_sliced_datasets(sliced_stats=None, df=None, schema=None, feature_name=None):
+  if type(sliced_stats) == type(None):
+    sliced_stats = calculate_slice_statistics(df=df, schema=schema, feature_name=feature_name)
+  
+  # For the case the calculation failed
+  if type(sliced_stats) == type(None):
+    return
+  
+  return [sliced.name for sliced in sliced_stats.datasets]
