@@ -53,7 +53,7 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
     for index, (key, value) in enumerate(instructions_dict.items()):
       new_name = key + "_transformed"
       f.write(f"  {key} = inputs['{key}']\n")
-      f.write(f"  {new_name} = tft.mean({key})\n")
+      f.write(f"  {new_name} = tensorflow_transform.mean({key})\n")
       f.write(f"  result['{new_name}'] = {new_name}\n")
       
       f.write ("\n  # return the transformed data\n")
