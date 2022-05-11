@@ -97,8 +97,8 @@ def visualize_two_slices_statistics(sliced_stats=None, slice_name_1=None, slice_
   tfdv.visualize_statistics(lhs_statistics=feature_stats_list_1, rhs_statistics=feature_stats_list_2, lhs_name=slice_name_1, rhs_name=slice_name_2)
   
   
-def visualize_two_dataframe_statistics(df_1=None, df_2=None, name_2="Dataframe #1", name_2="Dataframe #2"):
-  """visualize_two_dataframe_statistics(df_1, df_2, name_1, name_2) displays
+def visualize_two_dataframes_statistics(df_1=None, df_2=None, name_2="Dataframe #1", name_2="Dataframe #2"):
+  """visualize_two_dataframes_statistics(df_1, df_2, name_1, name_2) displays
   the statistics of the two dataframes side by side.
   Useful for comparing training, eval, and validation sets of the same data/schema
   The 2 dataframe arguments are mandatory"""
