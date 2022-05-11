@@ -44,7 +44,7 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
   for transforming data as instructed by the instructions_dictionary.
   The function is written to the file transform.py and needs to be imported after this command"""
   
-  with open("temp_file_383838.py",'w',encoding = 'utf-8') as f:
+  with open("temp_transform.py",'w',encoding = 'utf-8') as f:
     f.write(f"def transform_fn (inputs):\n")
     f.write('  \"\"\"Preprocess input columns into transformed columns.\"\"\"\n\n')
     f.write("  # extract the columns and assign to local variables\n")
@@ -60,9 +60,9 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
       f.write ("\n  # return the transformed data\n")
       f.write ("  return result\n")
 
-  import temp_file_383838
-  result_fn = temp_file_383838.transform_fn
-  os.remove('temp_file_383838.py')
+  import temp_transform
+  result_fn = temp_transform.transform_fn
+  #os.remove('temp_file_383838.py')
 
   return result_fn
     
