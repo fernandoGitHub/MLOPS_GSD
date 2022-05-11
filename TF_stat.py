@@ -38,7 +38,7 @@ def calculate_slice_statistics(df=None, slice_stats_options=None, schema=None, f
   df (dataframe) is a mandatory argument.
   If slice_stats_option is provided all the other arguments will be ignored"""
   
-  if type(df) == NoneType:
+  if type(df) == type(None):
     print ("A dataframe must be provided. Aborting function!")
     return
   if slice_stats_options == None:
