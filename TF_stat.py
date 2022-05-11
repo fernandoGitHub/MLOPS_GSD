@@ -43,7 +43,7 @@ def calculate_slice_statistics(df=None, slice_stats_options=None, schema=None, f
   if slice_stats_options == None:
     if schema != None and feature_name != None:
       slice_stats_options = set_slicing_options(schema, feature_name)
-    else
+    else:
       print ("Not enough arguments for any of the method. Please see help(TF_stat.calculate_slice_statistics) for more info")
       return
   
