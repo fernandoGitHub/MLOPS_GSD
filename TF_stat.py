@@ -17,15 +17,15 @@ def set_slicing_options(slice_fn=None, schema=None, feature_name=None):
   Schema is a mandatory argument.
   One of the following arguments is mandatory: slice_fn or feature_name."""
   
-  if (feature_name == None and slice_fn == None):
+  if type(feature_name) == type(None) and type(slice_fn) == type(None):
     print('You must provide either slice_fn or feature_name as argument - Aborting function')
     return
-  if schema == None:
+  if type(schema) == type(None):
     print('Schema parameter is mandatory - Aborting function')
     return
-  if (feature_name != None and slice_fn != None):
+  if type(feature_name) != type(None) and type(slice_fn) != type(None):
     print('Ambiguous arguments - ignoring feature_name')
-  if slice_fn == None:
+  if type(slice_fn) == type(None):
     slice_fn = set_slicing_feature(feature_name)
     
   slice_stats_options = tfdv.StatsOptions(schema=schema, slice_functions=[slice_fn], infer_type_from_schema=True)
@@ -41,8 +41,8 @@ def calculate_slice_statistics(df=None, slice_stats_options=None, schema=None, f
   if type(df) == type(None):
     print ("A dataframe must be provided. Aborting function!")
     return
-  if slice_stats_options == None:
-    if schema != None and feature_name != None:
+  if type(slice_stats_options) == type(None):
+    if type(schema) != type(None) and type(feature_name) != type(None):
       slice_stats_options = set_slicing_options(schema=schema, feature_name=feature_name)
     else:
       print ("Not enough arguments for any of the method. Please see help(TF_stat.calculate_slice_statistics) for more info")
