@@ -49,7 +49,7 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
     f.write('  \"\"\"Preprocess input columns into transformed columns.\"\"\"\n\n')
     f.write("  # extract the columns and assign to local variables\n")
     
-    f.write("import tensorflow_transform as tft\n")
+    f.write("  import tensorflow_transform as tft\n")
     f.write("  result = {}\n")
     for index, (key, value) in enumerate(instructions_dict.items()):
       new_name = key + "_transformed"
