@@ -1,7 +1,9 @@
-import tensorflow_data_validation as tfdv
 import os
-from tensorflow_data_validation.utils import slicing_util
 import pandas as pd
+
+import tensorflow_data_validation as tfdv
+from tensorflow_data_validation.utils import slicing_util
+from tensorflow_metadata.proto.v0.statistics_pb2 import DatasetFeatureStatisticsList
 
 
 def set_slicing_feature(feature_name):
@@ -67,3 +69,30 @@ def get_sliced_datasets(sliced_stats=None, df=None, schema=None, feature_name=No
     return
   
   return [sliced.name for sliced in sliced_stats.datasets]
+
+
+def visualize_two_slices_statistics(sliced_stats=None, feature_name_1=None, feature_name_2=None):
+  """visualize_two_slices_statistics(sliced_stats, feature_name_1, feature_name_2) displays
+  the statistics of the two slices values side by side.
+  All the 3 arguments are mandatory"""
+  
+  if type(sliced_stats) == type(None) or type(feature_1) == type(None) or type(feature_2) == type(None):
+    print ('sliced_stats, feature_name_1, and feature_name_2 are mandatory arguments. Aborting function!')
+    return
+  
+  datasets = get_sliced_datasets(sliced_stats=sliced_stats)
+  if not(feature_name_1 in datasets) or not(feature_name_2 in datasets):
+    print('The features cannot be found in the dataset. Aborting function!')
+    return
+
+  index_1 = datasets.index(feature_name_1)
+  feature_stats_list_1 = DatasetFeatureStatisticsList()
+  feature_stats_list_1.datasets.extend([sliced_stats.datasets[index_1]])
+  
+  index_2 = datasets.index(feature_name_2)
+  feature_stats_list_2 = DatasetFeatureStatisticsList()
+  feature_stats_list_2.datasets.extend([sliced_stats.datasets[index_2]])
+  
+  # Visualize the two slices side by side
+  tfdv.visualize_statistics(lhs_statistics=feature_stats_list_1, rhs_statistics=feature_stats_list_2, lhs_name=feature_name_1, rhs_name=feature_name_2)
+  
