@@ -44,7 +44,7 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
   for transforming data as instructed by the instructions_dictionary.
   The function is written to the file transform.py and needs to be imported after this command"""
   
-  with open("temp_transform2.py",'w',encoding = 'utf-8') as f:
+  with open("temp_transform_function.py",'w',encoding = 'utf-8') as f:
     f.write(f"def preprocessing_fn (inputs):\n")
     f.write('  \"\"\"Preprocess input columns into transformed columns.\"\"\"\n\n')
     f.write("  # extract the columns and assign to local variables\n")
@@ -70,6 +70,26 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
     f.write ("  return result\n")
 
     
+def transform_via_Beam(preprocessing_fn=preprocessing_fn):
+  """transform_via_Beam(preprocessing) launches Apache Beam to distribute
+  the transormation among multiple nodes.
+  The function returns two results: transformed_dataset and transform_fn"""
+  
+  # Ignore the warnings
+  tf.get_logger().setLevel('ERROR')
+
+  # a temporary directory is needed when analyzing the data
+  with tft_beam.Context(temp_dir=tempfile.mkdtemp()):
+    
+    # define the pipeline using Apache Beam syntax
+    transformed_dataset, transform_fn = (
+        
+        # analyze and transform the dataset using the preprocessing function
+        (raw_data, raw_data_metadata) | tft_beam.AnalyzeAndTransformDataset(
+            preprocessing_fn)
+    )
+
+  return transformed_dataset, transform_fn
            
               
     
