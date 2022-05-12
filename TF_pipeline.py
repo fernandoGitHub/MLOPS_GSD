@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tfx import v1 as tfx
 from tfx.orchestration.experimental.interactive.interactive_context import InteractiveContext
+from google.protobuf.json_format import MessageToDict
 import os
 import pprint
 pp = pprint.PrettyPrinter()
