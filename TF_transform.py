@@ -4,6 +4,8 @@ import tensorflow_transform as tft
 import tensorflow_transform.beam as tft_beam
 from tensorflow_transform.tf_metadata import dataset_metadata
 from tensorflow_transform.tf_metadata import schema_utils
+import pprint
+import tempfile
 
 def create_schema_dict_by_instructions(instructions_dict=None):
   """ create_schema_dict_by_instructions(instructions_dict) creates a tensorflow schema dictionary
