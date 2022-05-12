@@ -44,8 +44,8 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
   for transforming data as instructed by the instructions_dictionary.
   The function is written to the file transform.py and needs to be imported after this command"""
   
-  with open("temp_transform.py",'w',encoding = 'utf-8') as f:
-    f.write(f"def transform_fn (inputs):\n")
+  with open("temp_transform2.py",'w',encoding = 'utf-8') as f:
+    f.write(f"def preprocessing_fn (inputs):\n")
     f.write('  \"\"\"Preprocess input columns into transformed columns.\"\"\"\n\n')
     f.write("  # extract the columns and assign to local variables\n")
     
@@ -54,17 +54,21 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
     for index, (key, value) in enumerate(instructions_dict.items()):
       new_name = key + "_transformed"
       f.write(f"  {key} = inputs['{key}']\n")
-      f.write(f"  {new_name} = tft.mean({key})\n")
-      f.write(f"  result['{new_name}'] = {new_name}\n")
+
+      if value == 'center':
+        f.write(f"  {new_name} = {key} - tft.mean({key})\n")
+      
+      elif value == 'scale_0_1':
+        f.write(f"  {new_name} = tft.scale_to_0_1({key})\n")
+
+      elif value == 'apply_vocabulary':
+        f.write(f"  {new_name} = tft.compute_and_apply_vocabulary({key})\n")
+
+      f.write(f"  result['{new_name}'] = {new_name}\n\n")
       
     f.write ("\n  # return the transformed data\n")
     f.write ("  return result\n")
 
-  import temp_transform
-  result_fn = temp_transform.transform_fn
-  #os.remove('temp_file_383838.py')
-
-  return result_fn
     
            
               
