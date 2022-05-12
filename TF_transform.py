@@ -73,9 +73,9 @@ def generate_transformation_function_by_instructions(instructions_dict=None):
     f.write ("  return result\n")
 
     
-def transform_via_Beam(preprocessing_fn):
-  """transform_via_Beam(preprocessing) launches Apache Beam to distribute
-  the transormation among multiple nodes.
+def transform_via_Beam(preprocessing_fn, raw_data, raw_data_metadata):
+  """transform_via_Beam(preprocessing, raw_data, raw_data_metadata) launches Apache Beam 
+  to distribute the transormation among multiple nodes.
   The function returns two results: transformed_dataset and transform_fn"""
   
   # Ignore the warnings
