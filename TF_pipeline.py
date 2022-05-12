@@ -37,7 +37,7 @@ def generate_examples(context=None, input_base=None):
   if os.path.isdir('/content/data/census_data/.ipnby_checkpoints'):
     os.rmdir('/content/data/census_data/.ipynb_checkpoints')
 
-  example_gen = tfx.components.CsvExampleGen(input_base=_data_root)
+  example_gen = tfx.components.CsvExampleGen(input_base=input_base)
 
   # Execute the component
   context.run(example_gen)
