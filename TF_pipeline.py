@@ -123,7 +123,7 @@ def generate_statistics(context=None, examples_gen=None, input_base=None, displa
     examples_gen = generate_examples(context=context, input_base=input_base)
 
   # Instantiate StatisticsGen with the ExampleGen ingested dataset
-  statistics_gen = tfx.components.StatisticsGen(examples=example_gen.outputs['examples'])
+  statistics_gen = tfx.components.StatisticsGen(examples=examples_gen.outputs['examples'])
 
   # Execute the component
   context.run(statistics_gen)
