@@ -8,9 +8,27 @@ PACKAGE_DICT = {'TENSORFLOW':'tensorflow',
                 'TFX':'tfx',
                 'TF_MODEL_ANALYSIS':'tensorflow-model-analysis',
                 'TF_FAIRNESS_INDICATORS':'fairness-indicators',
-                'PIP':'pip'}
+                'PIP':'pip', 'WGET':'wget'}
 
+LIBRARY_URL = 'https://raw.githubusercontent.com/fernandoGitHub/MLOPS_GSD/main/'
 
+LIBRARY_DICT = {'TF_pipeline':'TF_pipeline.py', 'TF_stat':'TF_stat.py', 'TF_transform':'TF_transform.py'}
+
+def load_and_import_TF_libraries():
+  """load_and_import_TF_libraries loads the libraries from the Github repository
+  and imports them into the session"""
+  
+  # Importing wget library
+  install_package('WGET')
+  __import__('wget')
+  
+  for i, (key, value) in enumerate(LIBRARY_DICT):
+    file_name = wget.download(os.path.join(LIBRARY_URL, value))
+    print(f"Fetching from GitHub: {file_name}...")
+    __import__(key)
+    print(f"Importing {key}...")
+    
+    
 def display_packages():
   print (PACKAGE_DICT.keys())
 
