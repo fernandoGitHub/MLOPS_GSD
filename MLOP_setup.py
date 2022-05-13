@@ -26,8 +26,6 @@ def load_and_import_TF_libraries():
   for i, (key, value) in enumerate(LIBRARY_DICT.items()):
     file_name = wget.download(os.path.join(LIBRARY_URL, value))
     print(f"Fetching from GitHub: {file_name} ...")
-    __import__(key)
-    print(f"Importing {key} ...")
     
     
 def display_packages():
