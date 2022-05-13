@@ -23,11 +23,11 @@ def load_and_import_TF_libraries():
   install_package('WGET')
   __import__('wget')
   
-  for i, (key, value) in enumerate(LIBRARY_DICT):
+  for i, (key, value) in enumerate(LIBRARY_DICT.items()):
     file_name = wget.download(os.path.join(LIBRARY_URL, value))
-    print(f"Fetching from GitHub: {file_name}...")
+    print(f"Fetching from GitHub: {file_name} ...")
     __import__(key)
-    print(f"Importing {key}...")
+    print(f"Importing {key} ...")
     
     
 def display_packages():
@@ -62,7 +62,7 @@ def install_package(package_key, reload = True):
   if is_installed(package):
     print (f'Package: {package} is already installed. Skipping installation')
   else:
-    print(f'Installing {package}')
+    print(f'Installing {package} ...')
     sp.check_call([sys.executable, '-m', 'pip', 'install', package])
     print(f'Package {package} has been successfully installed')
 
