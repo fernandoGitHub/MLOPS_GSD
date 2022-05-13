@@ -18,6 +18,7 @@ def display_catalog(short=False):
     print("set_int_domain(min, max, schema=None, feature_name=None)")
     print("append_environments(environments=None)")
     print("remove_feature_from_environment(schema, feature_name, environment)")
+    print("write_schema_to_file(schema, url_dir, filename)")
   else:
     help(get_schema_uri)
     help(load_schema)
@@ -27,6 +28,7 @@ def display_catalog(short=False):
     help(set_int_domain)
     help(append_environments)
     help(remove_feature_from_environment)
+    help(write_schema_to_file)
 
     
 def get_schema_uri(schema_gen=None):
@@ -99,3 +101,15 @@ def remove_feature_from_environment(schema, feature_name, environment):
   tfdv.get_feature(schema, feature_name).not_in_environment.append(environment)
 
   return schema
+
+
+def write_schema_to_file(schema, url_dir, filename):
+  """write_schema_to_file(shema, url_dir, filename) saves the schema
+  to a file. If necessary, the directories needed for the url are
+  created."""
+
+  if not os.path.isdir(url_dir):
+    os.makedirs(url_dir)
+
+  url_file = os.path.join(url_dir, filename)
+  tfdv.write_schema_text(schema, url_file)
