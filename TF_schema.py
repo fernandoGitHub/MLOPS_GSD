@@ -81,8 +81,8 @@ def set_int_domain(min, max, schema=None, feature_name=None):
   return schema
 
 
-def append_environments(environments=None):
-  """append_environment(environment) gets a list of environments
+def append_environments(schema, environments):
+  """append_environment(schema, environment) gets a list of environments
   and appends them to the schema returning the updated schema"""
 
   for env in environments:
