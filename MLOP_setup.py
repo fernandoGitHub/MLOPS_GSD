@@ -13,7 +13,7 @@ PACKAGE_DICT = {'TENSORFLOW':'tensorflow',
 
 LIBRARY_URL = 'https://raw.githubusercontent.com/fernandoGitHub/MLOPS_GSD/main/'
 
-LIBRARY_DICT = {'TF_pipeline':'TF_pipeline.py', 'TF_stat':'TF_stat.py', 'TF_transform':'TF_transform.py'}
+LIBRARY_DICT = {'TF_pipeline':'TF_pipeline.py', 'TF_stat':'TF_stat.py', 'TF_transform':'TF_transform.py', 'TF_schema':'TF_schema.py'}
 
 def load_and_import_TF_libraries():
   """load_and_import_TF_libraries loads the libraries from the Github repository
