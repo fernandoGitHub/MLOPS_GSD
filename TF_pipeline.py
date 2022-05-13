@@ -14,6 +14,9 @@ def display_catalog(short=False):
     print("generate_statistics(context=None, examples_gen=None, input_base=None, display=False)")
     print("generate_schema(context=None, statistics_gen=None, input_base=None, display=False)")
     print("generate_validation(context=None, statistics_gen=None, schema_gen=None, input_base=None, display=False)")
+    print("show_schema(context, schema_gen)")
+    print("show_validation(context, validation)")
+    print("import_schema_from_file(context, schema_file, display=False)")
   else:
     help(generate_examples)
     help(get_examples_artifact_data)
@@ -21,9 +24,11 @@ def display_catalog(short=False):
     help(generate_statistics)
     help(generate_schema)
     help(generate_validation)
+    help(show_schema)
+    help(show_validation)
+    help(import_schema_from_file)
     
     
-
 def generate_examples(context=None, input_base=None):
   """generate examples(context, input_base) sends all the data in the
   input_base directory to the TFX Example Generator Pipeline.
@@ -160,11 +165,19 @@ def generate_schema(context=None, statistics_gen=None, input_base=None, display=
 
   # Show the output statistics
   if display:
-    context.show(schema_gen.outputs['schema'])
+    show_schema(context=context, schema_gen=schema_gen)
 
   return schema_gen
 
 
+def show_schema(context, schema_gen):
+  """display_schema displays the schema from a schema_gen object."""
+
+  schema = schema_gen.outputs['schema']
+
+  context.show(schema)
+
+  
 def generate_validation(context=None, statistics_gen=None, schema_gen=None, input_base=None, display=False):
   """generate_schema(context, statistics_gen, input_base, display) generates a scheme
   from generated examples. The function requires context and either statistics_gen
@@ -193,7 +206,28 @@ def generate_validation(context=None, statistics_gen=None, schema_gen=None, inpu
 
   # Show the output statistics
   if display:
-    context.show(example_validator.outputs['anomalies'])
+    show_validation(context=context, validation=example_validator)
 
   return example_validator
+
+def show_validation(context, validation):
+  """show_validation(context, validation) displays the validation results"""
+
+  context.show(example_validator.outputs['anomalies'])
+
+  
+def import_schema_from_file(context, schema_file, display=False):
+  """import_schema_from_file (context, schema_file) inputs the schema from a file (*.pbtxt)
+  as an importerSchemaGen and returns it"""
+
+  # Use ImportSchemaGen to put the curated schema to ML Metadata
+  user_schema_importer = tfx.components.ImportSchemaGen(schema_file=schema_file)
+
+  # Run the component
+  context.run(user_schema_importer, enable_cache=False)
+  
+  if display:
+    show_schema(context = context, schema_gen=user_schema_importer)
+
+  return user_schema_importer
 
