@@ -15,7 +15,7 @@ def display_catalog(short=False):
     print("generate_schema(context=None, statistics_gen=None, input_base=None, display=False)")
     print("generate_validation(context=None, statistics_gen=None, schema_gen=None, input_base=None, display=False)")
     print("show_schema(context, schema_gen)")
-    print("show_validation(context, validation)")
+    print("show_validation(context, example_validator)")
     print("import_schema_from_file(context, schema_file, display=False)")
   else:
     help(generate_examples)
@@ -206,11 +206,11 @@ def generate_validation(context=None, statistics_gen=None, schema_gen=None, inpu
 
   # Show the output statistics
   if display:
-    show_validation(context=context, validation=example_validator)
+    show_validation(context=context, example_validator=example_validator)
 
   return example_validator
 
-def show_validation(context, validation):
+def show_validation(context, example_validator):
   """show_validation(context, validation) displays the validation results"""
 
   context.show(example_validator.outputs['anomalies'])
