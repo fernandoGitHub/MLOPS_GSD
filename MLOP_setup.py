@@ -1,6 +1,7 @@
 import sys
 import subprocess as sp
 import pkg_resources
+import os
 
 PACKAGE_DICT = {'TENSORFLOW':'tensorflow', 
                 'TF_DATA_VALIDATION':'tensorflow-data-validation',
