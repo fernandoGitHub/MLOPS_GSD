@@ -96,7 +96,7 @@ def append_environments(schema, environments):
 def remove_feature_from_environment(schema, feature_name, environment):
   """remove_feature_from_environment(schema, feature_name, environment) removes
   the given feature from the given environment.
-  The function returns the new schema object"""
+  The function returns the new file url"""
 
   tfdv.get_feature(schema, feature_name).not_in_environment.append(environment)
 
@@ -113,3 +113,6 @@ def write_schema_to_file(schema, url_dir, filename):
 
   url_file = os.path.join(url_dir, filename)
   tfdv.write_schema_text(schema, url_file)
+  
+  return url_file
+  
