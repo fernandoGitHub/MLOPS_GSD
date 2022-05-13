@@ -21,7 +21,7 @@ def load_and_import_TF_libraries():
   
   # Importing wget library
   install_package('WGET')
-  __import__('wget')
+  import wget
   
   for i, (key, value) in enumerate(LIBRARY_DICT.items()):
     file_name = wget.download(os.path.join(LIBRARY_URL, value))
